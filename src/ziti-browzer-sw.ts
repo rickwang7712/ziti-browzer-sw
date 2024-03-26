@@ -107,8 +107,9 @@ const matchGETCb = (url:any, request:any) => {
   if (typeof self._zitiConfig === 'undefined') {
     return true;
   }
-  if (getURL.searchParams.get("code") && getURL.searchParams.get("state")) {
-    return false;
+  if (getURL.pathname !== self._zitiConfig.idp.whitelist_callback_path &&
+    getURL.searchParams.get("code") && getURL.searchParams.get("state")) {
+        return false;
   }
   let controllerURL = new URL(self._zitiConfig.controller.api);
   if (url.hostname === controllerURL.hostname) {
